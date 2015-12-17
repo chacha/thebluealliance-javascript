@@ -9,10 +9,10 @@ window.nar.api.TBA = (function( window ){
     return 'Currently running version ' + obj.current_version + ' of TBA API';
   }
 
-  obj.getTeam = function( team_number, team_type, callback ) {
+  obj.getTeam = function( team_key, callback ) {
 
-    if ( typeof team_number === "undefined" ) {
-      throw "Invalid number argument given.";
+    if ( typeof team_key === "undefined" ) {
+      throw "Invalid team key given.";
     }
 
     if ( typeof team_type === "function" ) {
@@ -20,8 +20,10 @@ window.nar.api.TBA = (function( window ){
       type = undefined;
     }
 
-    if ( typeof team_type === "undefined" ) {
-      type = "frc";
+    http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key, {}, callback );
+
+  }
+
     }
 
     var team_key = team_type + team_number;
