@@ -42,7 +42,7 @@ window.nar.api.TBA = (function( window ){
 
   function http_get(url, options, callback )
   {
-    // Allow options to be optional
+    // Allow options argument to be optional
     if ( typeof options === "function" && options !== undefined ) {
       callback = options;
       options = {};
