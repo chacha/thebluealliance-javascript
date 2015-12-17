@@ -24,10 +24,19 @@ window.nar.api.TBA = (function( window ){
 
   }
 
+  obj.getTeamMatches = function ( team_key, event_key, callback ) {
+
+    if ( typeof event_key === "function" ) {
+      callback = event_key;
+      event_key = undefined;
     }
 
-    var team_key = team_type + team_number;
-    http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key, {}, callback );
+    if ( typeof event_key === "undefined" ) {
+      throw "Invalid event key argument given.";
+    }
+
+    http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key
+      + "/event/" + event_key + "/matches", {}, callback );
 
   }
 
