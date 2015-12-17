@@ -8,7 +8,85 @@ window.nar = (function( window ){
     return 'Currently running version ' + obj.current_version + ' of TBA Analysis';
   }
 
-  obj.getTeamEventAverage = function( team_key, event_key ) {
+  obj.getTeamYearAverage = function( team_key, year, callback ) {
+    if ( typeof team_key === "undefined" ) {
+      throw "No team key argument provided.";
+    }
+
+    if ( typeof year === "undefined" ) {
+      throw "No year argument provided.";
+    }
+
+    if ( typeof callback !== "function" ) {
+      callback = function( results ){
+        console.log( 'No callback provided for getTeamYearAverage(). Printing to log.')
+        console.log( results );
+      }
+    }
+
+    var eventResults = [];
+    var processYearEvents = function( data ) {
+      data.forEach( function( event ){
+
+        var eventPromise = new Promise( function( resolve, reject ) {
+          obj.getTeamEventAverage( team_key, event.key, function( data ) {
+            resolve( data );
+          });
+        } );
+        eventResults.push( eventPromise );
+
+      } );
+
+      Promise.all( eventResults ).then( function( results ){
+
+        var scores = {
+          'qm' : 0,
+          'ef' : 0,
+          'qf' : 0,
+          'sf' : 0,
+          'f'  : 0,
+        }
+
+        results.forEach( function( result ){
+          scores.qm += result.qm;
+          scores.ef += result.ef;
+          scores.qf += result.qf;
+          scores.sf += result.sf;
+          scores.f  += result.f;
+        } );
+
+        scores.qm = scores.qm/results.length;
+        scores.ef = scores.ef/results.length;
+        scores.qf = scores.qf/results.length;
+        scores.sf = scores.sf/results.length;
+        scores.f  = scores.f/results.length;
+
+        callback( scores );
+
+      } );
+    }
+
+    obj.api.TBA.getTeamEvents( team_key, year, processYearEvents );
+
+    return true;
+  }
+
+  obj.getTeamEventAverage = function( team_key, event_key, callback ) {
+
+    if ( typeof team_key === "undefined" ) {
+      throw "No team key argument provided.";
+    }
+
+    if ( typeof event_key === "undefined" ) {
+      throw "No event key argument provided.";
+    }
+
+    if ( typeof callback !== "function" ) {
+      callback = function( results ){
+        console.log( 'No callback provided for getTeamEventAverage(). Printing to log.')
+        console.log( results );
+      }
+    }
 
     var processEventAverage = function( data ) {
       var sorted = MatchHelper.separateMatches( data );
@@ -19,10 +97,12 @@ window.nar = (function( window ){
         'sf' : MatchHelper.getMatchesAverage( team_key, sorted.sf ),
         'f'  : MatchHelper.getMatchesAverage( team_key, sorted.f ),
       }
-      console.log( results );
-    }
 
+      callback( results );
+    }
     obj.api.TBA.getTeamMatches( team_key, event_key, processEventAverage );
+
+    return true;
   }
 
   var MatchHelper = {
