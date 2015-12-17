@@ -40,6 +40,22 @@ window.nar.api.TBA = (function( window ){
 
   }
 
+  obj.getTeamEvents = function ( team_key, year, callback ) {
+
+    if ( typeof year === "function" ) {
+      callback = year;
+      year = undefined;
+    }
+
+    if ( typeof year === "undefined" ) {
+      throw "Invalid year argument given.";
+    }
+
+    http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key
+      + "/" + year + "/events", {}, callback );
+
+  }
+
   function http_get(url, options, callback )
   {
     // Allow options argument to be optional
