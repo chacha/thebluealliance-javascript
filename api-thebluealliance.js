@@ -9,24 +9,24 @@ window.nar.api.TBA = (function( window ){
     return 'Currently running version ' + obj.current_version + ' of TBA API';
   }
 
-  obj.getTeam = function( number, type, callback ) {
+  obj.getTeam = function( team_number, team_type, callback ) {
 
-    if ( typeof number === "undefined" ) {
+    if ( typeof team_number === "undefined" ) {
       throw "Invalid number argument given.";
     }
 
-    if ( typeof type === "function" ) {
+    if ( typeof team_type === "function" ) {
       callback = type;
       type = undefined;
     }
 
-    if ( typeof type === "undefined" ) {
+    if ( typeof team_type === "undefined" ) {
       type = "frc";
     }
 
-    var team_key = type + number;
+    var team_key = team_type + team_number;
     http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key, {}, callback );
-    
+
   }
 
   function http_get(url, options, callback )
