@@ -322,6 +322,7 @@ window.nar.api.TBA = (function( window ){
       throw 'Invalid options argument given.';
     }
 
+    run_config_check();
     var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
     if ( url.indexOf( '?') === -1 ) {
       url = url + "?X-TBA-App-Id=" + indentifier;
@@ -345,6 +346,12 @@ window.nar.api.TBA = (function( window ){
 
     resource.open( "GET", url, true );
     resource.send();
+  }
+
+  function run_config_check() {
+    if ( obj.team_number === '' || obj.app_identifier === '' ) {
+      throw 'Configuration error: Please configure team_number and app_identifier';
+    }
   }
 
   function generate_api_url( path ) {
