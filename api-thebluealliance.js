@@ -2,7 +2,7 @@ window.nar.api.TBA = (function( window ){
   var nar = window.nar;
   var obj = {
     'current_version' : '0.1',
-    'team'            : 'frc3128',
+    'team_number'     : 'frc3128',
     'app_identifier'  : 'team-analysis',
     'api_base_url'    : 'https://www.thebluealliance.com/api/v2/',
   };
@@ -322,7 +322,7 @@ window.nar.api.TBA = (function( window ){
       throw 'Invalid options argument given.';
     }
 
-    var indentifier = obj.team + ':' + obj.app_identifier + ':' + obj.current_version;
+    var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
     if ( url.indexOf( '?') === -1 ) {
       url = url + "?X-TBA-App-Id=" + indentifier;
     } else {
