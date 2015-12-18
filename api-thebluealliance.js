@@ -24,6 +24,21 @@ window.nar.api.TBA = (function( window ){
 
   }
 
+  obj.getTeams = function( team_key, callback ) {
+
+    if ( typeof team_key === "undefined" ) {
+      throw "Invalid team key given.";
+    }
+
+    if ( typeof team_type === "function" ) {
+      callback = type;
+      type = undefined;
+    }
+
+    http_get( "https://www.thebluealliance.com/api/v2/team/" + team_key, {}, callback );
+
+  }
+
   obj.getTeamMatches = function ( team_key, event_key, callback ) {
 
     if ( typeof event_key === "function" ) {
@@ -106,13 +121,13 @@ window.nar.api.TBA = (function( window ){
 
   obj.cache = ( function() {
     var data = {};
-    var obj = {};
-
-    obj.stats = {
-      'writes' : 0,
-      'reads'  : 0,
-      'hits'   : 0,
-      'misses' : 0,
+    var obj = {
+      'enabled' : true,
+      'stats'   : {
+        'writes' : 0,
+        'hits'   : 0,
+        'misses' : 0,
+      },
     };
 
     obj.put = function( key, value ) {
@@ -122,25 +137,30 @@ window.nar.api.TBA = (function( window ){
     }
 
     obj.get = function( key ) {
-      obj.stats.reads += 1;
+      var result = undefined;
       if ( obj.exists ( key ) ) {
-        obj.stats.hits += 1;
-        return data[key];
-      } else {
-        obj.stats.misses += 1;
-        return undefined;
+        result = data[key];
       }
+      return result;
     }
 
     obj.exists = function( key ) {
-      obj.stats.reads += 1;
+      var result = false;
       if ( key in data ) {
+        result = true;
+      }
+
+      // Always record hits/misses for debugging
+      if ( result === true ) {
         obj.stats.hits += 1;
-        return true;
       } else {
         obj.stats.misses += 1;
-        return false;
       }
+
+      if ( obj.enabled === false ) {
+        result = false;
+      }
+      return result;
     }
 
     obj.dump = function() {
