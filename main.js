@@ -8,6 +8,47 @@ window.nar = (function( window ){
     return 'Currently running version ' + obj.current_version + ' of TBA Analysis';
   }
 
+  obj.getTeamsYearAverageByEvent = function( event_key, year, callback ) {
+
+    if ( typeof event_key === "undefined" ) {
+      throw "No event key argument provided.";
+    }
+
+    if ( typeof year === "undefined" ) {
+      throw "No year argument provided.";
+    }
+
+    if ( typeof callback !== "function" ) {
+      callback = function( results ){
+        console.log( 'No callback provided for getTeamsYearAverageByEvent(). Printing to log.')
+        console.log( results );
+      }
+    }
+
+    var processTeamList = function ( data ) {
+
+      var teamResults = [];
+      data.forEach( function( team ){
+
+        var promise = new Promise( function( resolve, reject ) {
+          obj.getTeamYearAverage( team.key, year, function( data ) {
+            resolve( data );
+          });
+        } );
+        teamResults.push( promise );
+
+      } );
+
+      Promise.all( teamResults ).then( function( results ){
+        callback( results );
+      } );
+
+    };
+
+    obj.api.TBA.getTeamsByEvent( event_key, processTeamList );
+    return true;
+  }
+
   obj.getTeamYearAverage = function( team_key, year, callback ) {
     if ( typeof team_key === "undefined" ) {
       throw "No team key argument provided.";
@@ -40,11 +81,13 @@ window.nar = (function( window ){
       Promise.all( eventResults ).then( function( results ){
 
         var scores = {
-          'qm' : 0,
-          'ef' : 0,
-          'qf' : 0,
-          'sf' : 0,
-          'f'  : 0,
+          'key'  : team_key,
+          'year' : year,
+          'qm'   : 0,
+          'ef'   : 0,
+          'qf'   : 0,
+          'sf'   : 0,
+          'f'    : 0,
         }
 
         results.forEach( function( result ){
@@ -91,11 +134,13 @@ window.nar = (function( window ){
     var processEventAverage = function( data ) {
       var sorted = MatchHelper.separateMatches( data );
       var results = {
-        'qm' : MatchHelper.getMatchesAverage( team_key, sorted.qm ),
-        'ef' : MatchHelper.getMatchesAverage( team_key, sorted.ef ),
-        'qf' : MatchHelper.getMatchesAverage( team_key, sorted.qf ),
-        'sf' : MatchHelper.getMatchesAverage( team_key, sorted.sf ),
-        'f'  : MatchHelper.getMatchesAverage( team_key, sorted.f ),
+        'team'  : team_key,
+        'event' : event_key,
+        'qm'    : MatchHelper.getMatchesAverage( team_key, sorted.qm ),
+        'ef'    : MatchHelper.getMatchesAverage( team_key, sorted.ef ),
+        'qf'    : MatchHelper.getMatchesAverage( team_key, sorted.qf ),
+        'sf'    : MatchHelper.getMatchesAverage( team_key, sorted.sf ),
+        'f'     : MatchHelper.getMatchesAverage( team_key, sorted.f ),
       }
 
       callback( results );

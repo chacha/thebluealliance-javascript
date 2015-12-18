@@ -56,6 +56,17 @@ window.nar.api.TBA = (function( window ){
 
   }
 
+  obj.getTeamsByEvent = function ( event_key, callback ) {
+
+    if ( typeof event_key === "undefined" ) {
+      throw "Invalid event key argument given.";
+    }
+
+    http_get( "https://www.thebluealliance.com/api/v2/event/" + event_key
+      + "/teams", {}, callback );
+
+  }
+
   function http_get(url, options, callback )
   {
     // Allow options argument to be optional
