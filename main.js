@@ -2,6 +2,7 @@ window.nar = (function( window ){
   var obj = {
     'current_version' : '0.1',
     'api' : {},
+    'provide_defautl_callback' : true,
   };
 
   obj.version = function(){
@@ -202,6 +203,24 @@ window.nar = (function( window ){
       return 'none';
     }
   };
+
+  obj.defaultCallback = function( results ){
+    console.log( 'No callback provided. Printing to log.')
+    console.log( results );
+  };
+
+  obj.parseCallback = function( callback ) {
+
+    if ( obj.provide_default_callback === false ) {
+      return callback;
+    }
+
+    if ( typeof callback !== "function" ) {
+      callback = obj.defaultCallback;
+    }
+    return callback;
+
+  }
 
   return obj;
 })(window);
