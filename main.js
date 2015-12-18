@@ -2,7 +2,7 @@ window.nar = (function( window ){
   var obj = {
     'current_version' : '0.1',
     'api' : {},
-    'provide_defautl_callback' : true,
+    'provide_default_callback' : true,
   };
 
   obj.version = function(){
@@ -46,7 +46,7 @@ window.nar = (function( window ){
 
     };
 
-    obj.api.TBA.getTeamsByEvent( event_key, processTeamList );
+    obj.api.TBA.event.teams( event_key, processTeamList );
     return true;
   }
 
@@ -110,7 +110,7 @@ window.nar = (function( window ){
       } );
     }
 
-    obj.api.TBA.getTeamEvents( team_key, year, processYearEvents );
+    obj.api.TBA.team.event.list( team_key, year, processYearEvents );
 
     return true;
   }
@@ -146,7 +146,7 @@ window.nar = (function( window ){
 
       callback( results );
     }
-    obj.api.TBA.getTeamMatches( team_key, event_key, processEventAverage );
+    obj.api.TBA.team.event.matches( team_key, event_key, processEventAverage );
 
     return true;
   }
