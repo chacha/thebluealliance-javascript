@@ -312,6 +312,8 @@ window.nar.api.TBA = (function( window ){
 
   function http_get(url, options, callback )
   {
+    run_config_check();
+
     // Allow options argument to be optional
     if ( typeof options === "function" && options !== undefined ) {
       callback = options;
@@ -320,14 +322,6 @@ window.nar.api.TBA = (function( window ){
 
     if ( typeof options !== "object" ) {
       throw 'Invalid options argument given.';
-    }
-
-    run_config_check();
-    var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
-    if ( url.indexOf( '?') === -1 ) {
-      url = url + "?X-TBA-App-Id=" + indentifier;
-    } else {
-      url = url + "&X-TBA-App-Id=" + indentifier;
     }
 
     if ( obj.cache.exists( url ) ) {
@@ -345,6 +339,10 @@ window.nar.api.TBA = (function( window ){
     }
 
     resource.open( "GET", url, true );
+
+    var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
+    resource.setRequestHeader( 'X-TBA-App-Id', indentifier );
+
     resource.send();
   }
 
