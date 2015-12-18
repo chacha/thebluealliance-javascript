@@ -79,14 +79,6 @@ window.nar.api.TBA = (function( window ){
       throw 'Invalid options argument given.';
     }
 
-    var resource = new XMLHttpRequest();
-    resource.onreadystatechange = function() {
-        if (resource.readyState == 4 && resource.status == 200) {
-            var data = JSON.parse(resource.responseText);
-            callback( data );
-        }
-    }
-
     var indentifier = obj.team + ':' + obj.app_identifier + ':' + obj.current_version;
     if ( url.indexOf( '?') === -1 ) {
       url = url + "?X-TBA-App-Id=" + indentifier;
@@ -94,9 +86,69 @@ window.nar.api.TBA = (function( window ){
       url = url + "&X-TBA-App-Id=" + indentifier;
     }
 
+    if ( obj.cache.exists( url ) ) {
+      callback( obj.cache.get( url ) );
+      return true;
+    }
+
+    var resource = new XMLHttpRequest();
+    resource.onreadystatechange = function() {
+        if (resource.readyState == 4 && resource.status == 200) {
+            var data = JSON.parse(resource.responseText);
+            obj.cache.put( url, data );
+            callback( data );
+        }
+    }
+
     resource.open( "GET", url, true );
     resource.send();
   }
+
+  obj.cache = ( function() {
+    var data = {};
+    var obj = {};
+
+    obj.stats = {
+      'writes' : 0,
+      'reads'  : 0,
+      'hits'   : 0,
+      'misses' : 0,
+    };
+
+    obj.put = function( key, value ) {
+      data[key] = value;
+      obj.stats.writes += 1;
+      return true;
+    }
+
+    obj.get = function( key ) {
+      obj.stats.reads += 1;
+      if ( obj.exists ( key ) ) {
+        obj.stats.hits += 1;
+        return data[key];
+      } else {
+        obj.stats.misses += 1;
+        return undefined;
+      }
+    }
+
+    obj.exists = function( key ) {
+      obj.stats.reads += 1;
+      if ( key in data ) {
+        obj.stats.hits += 1;
+        return true;
+      } else {
+        obj.stats.misses += 1;
+        return false;
+      }
+    }
+
+    obj.dump = function() {
+      return data;
+    }
+
+    return obj;
+  })();
 
   return obj;
 })(window);
