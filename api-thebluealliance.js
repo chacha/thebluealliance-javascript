@@ -1,6 +1,6 @@
 window.TBA = (function( window ){
   var obj = {
-    'current_version' : '0.1',
+    'current_version' : '0.2',
     'team_number'     : 'frc3128',
     'app_identifier'  : 'team-analysis',
     'api_base_url'    : 'https://www.thebluealliance.com/api/v2/',
@@ -8,7 +8,7 @@ window.TBA = (function( window ){
   };
 
   obj.version = function(){
-    return 'Currently running version ' + obj.current_version + ' of TBA API';
+    return 'Currently running version ' + obj.current_version + ' of TBA Javascript API';
   }
 
   obj.team = {};
