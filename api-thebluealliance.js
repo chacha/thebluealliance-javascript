@@ -5,6 +5,7 @@ window.nar.api.TBA = (function( window ){
     'team_number'     : 'frc3128',
     'app_identifier'  : 'team-analysis',
     'api_base_url'    : 'https://www.thebluealliance.com/api/v2/',
+    'provide_default_callback' : true,
   };
 
   obj.version = function(){
@@ -17,7 +18,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key;
     http_get( path, callback );
@@ -28,7 +28,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof page_num === "undefined" ) {
       page_num = 1;
     }
-    callback = nar.parseCallback( callback );
 
     page_num = parseInt( page_num );
     path = "teams/" + page_num;
@@ -41,7 +40,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/years_participated";
     http_get( path, callback );
@@ -57,7 +55,6 @@ window.nar.api.TBA = (function( window ){
       callback = year;
       year = undefined;
     }
-    callback = nar.parseCallback( callback );
 
     if ( year !== undefined ) {
       year = parseInt( year );
@@ -76,7 +73,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/events";
     http_get( path, callback );
@@ -88,7 +84,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/awards";
     http_get( path, callback );
@@ -100,7 +95,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/robots";
     http_get( path, callback );
@@ -116,7 +110,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     year = parseInt( year );
     path = "team/" + team_key + "/" + year + "/events";
@@ -132,7 +125,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/event/" + event_key + "/awards";
     http_get( path, callback );
@@ -147,7 +139,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/event/" + event_key + "/matches";
     http_get( path, callback );
@@ -160,7 +151,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     year = parseInt( year );
     path = "events/" + year;
@@ -173,7 +163,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key;
     http_get( path, callback );
@@ -185,7 +174,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/teams";
     http_get( path, callback );
@@ -197,7 +185,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/matches";
     http_get( path, callback );
@@ -209,7 +196,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/stats";
     http_get( path, callback );
@@ -221,7 +207,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/rankings";
     http_get( path, callback );
@@ -233,7 +218,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/awards";
     http_get( path, callback );
@@ -245,7 +229,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/district_points";
     http_get( path, callback );
@@ -258,7 +241,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof match_key === "undefined" ) {
       throw "Invalid match key argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "match/" + match_key;
     http_get( path, callback );
@@ -271,7 +253,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     path = "districts/" + year;
     http_get( path, callback );
@@ -286,7 +267,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/events";
@@ -302,7 +282,6 @@ window.nar.api.TBA = (function( window ){
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
     }
-    callback = nar.parseCallback( callback );
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/rankings";
@@ -326,7 +305,12 @@ window.nar.api.TBA = (function( window ){
         if (resource.readyState == 4 && resource.status == 200) {
             var data = JSON.parse(resource.responseText);
             obj.cache.put( path, data );
-            callback( data );
+
+            if ( typeof callback === "function" ) {
+              callback( data );
+            } else if ( obj.provide_default_callback === true ) {
+              obj.defaultCallback( data );
+            }
         }
     }
 
@@ -338,6 +322,13 @@ window.nar.api.TBA = (function( window ){
 
     resource.send();
   }
+
+  obj.defaultCallback = function( results ){
+    console.log( 'No callback provided. Printing to log.' );
+    console.log( results );
+    console.log( 'Current cache statistics:' );
+    console.log( obj.cache.stats );
+  };
 
   obj.cache = ( function() {
     var data = {};
