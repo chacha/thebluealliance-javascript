@@ -1,5 +1,4 @@
-window.nar.api.TBA = (function( window ){
-  var nar = window.nar;
+window.TBA = (function( window ){
   var obj = {
     'current_version' : '0.1',
     'team_number'     : 'frc3128',
