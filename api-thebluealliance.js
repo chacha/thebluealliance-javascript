@@ -7,11 +7,24 @@ window.TBA = (function( window ){
     'provide_default_callback' : true,
   };
 
+  /**
+   * Returns string on version information
+   * @return {string} Version information.
+   */
   obj.version = function(){
     return 'Currently running version ' + obj.current_version + ' of TBA Javascript API';
   }
 
   obj.team = {};
+
+  /**
+   * Gets information relating to a specific team.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.get = function( team_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -22,6 +35,15 @@ window.TBA = (function( window ){
     http_get( path, callback );
   }
 
+  /**
+   * Returns a list of teams, by team number, paginated in sets of 500. Each
+   *  page contains teams whose number is between start = 500 * page and
+   *  end at end = start + 499, inclusive.
+   *
+   * @param {integer} page_num Page number of results to retrieve.
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.list = function( page_num, callback ) {
 
     if ( typeof page_num === "undefined" ) {
@@ -34,6 +56,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Get an array of the years a specific team participated in events.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.years_participated = function ( team_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -45,6 +75,17 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets media resource information relating to a team for a specific year, or
+   *  the most current year.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {integer} year The year to get media information on. Defaults to the
+   *    current year. Example: '2010', '2015'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.media = function ( team_key, year, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -67,6 +108,15 @@ window.TBA = (function( window ){
   }
 
   obj.team.history = {};
+
+  /**
+   * Gets an array of information on the events a team has ever participated in.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.history.events = function ( team_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -78,6 +128,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Get an array of objects containing the awards a team has ever received.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.history.awards = function ( team_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -89,6 +147,15 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Get an array of objects contain information on the robots a team has
+   *  produced, by year.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.history.robots = function ( team_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -101,6 +168,15 @@ window.TBA = (function( window ){
   }
 
   obj.team.event = {};
+  /**
+   * Get an array of events a team participated in during a given year.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {integer} year The year to get information on. Example: '2015'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.event.list = function ( team_key, year, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -116,6 +192,16 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of awards given to a specific team at a specific event.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.event.awards = function ( team_key, event_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -130,6 +216,17 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of match information on matches a given team participated
+   *    at a given event.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.team.event.matches = function ( team_key, event_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
@@ -145,6 +242,13 @@ window.TBA = (function( window ){
   }
 
   obj.event = {};
+  /**
+   * Get all the events occuring during a given year.
+   *
+   * @param {integer} year The year to get information on. Example: '2015'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.list = function ( year, callback ) {
 
     if ( typeof year === "undefined" ) {
@@ -157,6 +261,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets information on a given event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.get = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -168,6 +280,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of teams that participated in a given event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.teams = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -179,6 +299,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of matches that occured at a specific event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.matches = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -190,6 +318,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets various statistics about teams at a specific event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.stats = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -201,6 +337,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets a ranking of teams that attended a specific event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.rankings = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -212,6 +356,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of awards given at a specific event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.awards = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -223,6 +375,14 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of district points given out at a specific event.
+   *
+   * @param {string} event_key  The event to get information on. Includes the
+   *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.event.distrct_points = function ( event_key, callback ) {
 
     if ( typeof event_key === "undefined" ) {
@@ -235,6 +395,14 @@ window.TBA = (function( window ){
   }
 
   obj.match = {};
+  /**
+   * Gets information on a specifc match.
+   *
+   * @param {string} match_key  The match to get information on. Includes the
+   *    event key, competition level, and number. Example: '2014cmp_f1m1'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.match.get = function ( match_key ) {
 
     if ( typeof match_key === "undefined" ) {
@@ -247,6 +415,13 @@ window.TBA = (function( window ){
   }
 
   obj.district = {};
+  /**
+   * Gets an array of districts active during a given year.
+   *
+   * @param {integer} year The year to get information on.
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.district.list = function ( year ) {
 
     if ( typeof year === "undefined" ) {
@@ -258,6 +433,15 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of events ocurring in a given district during a given year.
+   *
+   * @param {string} district_key  The dsitrict to get information on.
+   *    Examples: 'ne', 'in', 'mar'
+   * @param {integer} year The year to get information on.
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.district.events = function ( district_key, year, callback ) {
 
     if ( typeof district_key === "undefined" ) {
@@ -273,6 +457,15 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Gets an array of team rankings in a given district during a given year.
+   *
+   * @param {string} district_key  The dsitrict to get information on.
+   *    Examples: 'ne', 'in', 'mar'
+   * @param {integer} year The year to get information on.
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   obj.district.rankings = function ( district_key, year, callback ) {
 
     if ( typeof district_key === "undefined" ) {
@@ -288,6 +481,13 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Fetches a resource from the API server
+   * @param {string} path The API path, without begining slash, that follows the
+   *    API directory and version path. Example: 'teams/1'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
   function http_get( path, callback )
   {
     if ( obj.team_number === '' || obj.app_identifier === '' ) {
@@ -322,6 +522,11 @@ window.TBA = (function( window ){
     resource.send();
   }
 
+  /**
+   * Default callback to use if no callback is provided. Only used if
+   *    obj.provide_default_callback === true. Can be overriden to provide your
+   *    own implementation of the default callback.
+   */
   obj.defaultCallback = function( results ){
     console.log( 'No callback provided. Printing to log.' );
     console.log( results );
@@ -329,6 +534,10 @@ window.TBA = (function( window ){
     console.log( obj.cache.stats );
   };
 
+  /**
+   * Resource caching to reduce number of requests to the API server. Persists
+   *    as long as the Javascript process is running. (Browser refresh clears)
+   */
   obj.cache = ( function() {
     var data = {};
     var obj = {
@@ -340,12 +549,22 @@ window.TBA = (function( window ){
       },
     };
 
+    /**
+     * Add key/value entry to the cache
+     * @param {string} key The key to store the value under. Must be unique.
+     * @param {mixed} value The value to associate with the key.
+     */
     obj.put = function( key, value ) {
       data[key] = value;
       obj.stats.writes += 1;
       return true;
     }
 
+    /**
+     * Retrieves the value associated with a given key.
+     * @param {string} key The key to retrieve the value of.
+     * @return {mixed} The value associated with the key.
+     */
     obj.get = function( key ) {
       var result = undefined;
       if ( obj.exists ( key ) ) {
@@ -354,6 +573,12 @@ window.TBA = (function( window ){
       return result;
     }
 
+    /**
+     * Checks if a given key has an associated value
+     * @param {string} key The key to check for an associated value
+     * @return {boolean} True if the key is associated with a value. If not,
+     *    returns false.
+     */
     obj.exists = function( key ) {
       var result = false;
       if ( key in data ) {
@@ -373,6 +598,10 @@ window.TBA = (function( window ){
       return result;
     }
 
+    /**
+     * Returns the entire cache data object
+     * @return {object} The cache data object containing all key and values
+     */
     obj.dump = function() {
       return data;
     }
