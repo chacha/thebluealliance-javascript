@@ -205,8 +205,10 @@ window.nar = (function( window ){
   };
 
   obj.defaultCallback = function( results ){
-    console.log( 'No callback provided. Printing to log.')
+    console.log( 'No callback provided. Printing to log.' );
     console.log( results );
+    console.log( 'Current cache statistics:' );
+    console.log( obj.api.TBA.cache.stats );
   };
 
   obj.parseCallback = function( callback ) {
