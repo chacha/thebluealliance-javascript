@@ -20,7 +20,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
   }
 
   obj.team.list = function( page_num, callback ) {
@@ -32,7 +32,7 @@ window.nar.api.TBA = (function( window ){
 
     page_num = parseInt( page_num );
     path = "teams/" + page_num;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );``
 
   }
 
@@ -44,7 +44,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/years_participated";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -66,7 +66,7 @@ window.nar.api.TBA = (function( window ){
       path = "team/" + team_key + "/media";
     }
 
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -79,7 +79,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/events";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -91,7 +91,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/awards";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -103,7 +103,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/history/robots";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -120,7 +120,7 @@ window.nar.api.TBA = (function( window ){
 
     year = parseInt( year );
     path = "team/" + team_key + "/" + year + "/events";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -135,7 +135,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/event/" + event_key + "/awards";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -150,7 +150,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "team/" + team_key + "/event/" + event_key + "/matches";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -164,7 +164,7 @@ window.nar.api.TBA = (function( window ){
 
     year = parseInt( year );
     path = "events/" + year;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -176,7 +176,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -188,7 +188,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/teams";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -200,7 +200,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/matches";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -212,7 +212,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/stats";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -224,7 +224,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/rankings";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -236,7 +236,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/awards";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -248,7 +248,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "event/" + event_key + "/district_points";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -261,7 +261,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "match/" + match_key;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -274,7 +274,7 @@ window.nar.api.TBA = (function( window ){
     callback = nar.parseCallback( callback );
 
     path = "districts/" + year;
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -290,7 +290,7 @@ window.nar.api.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/events";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
@@ -306,26 +306,18 @@ window.nar.api.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/rankings";
-    http_get( generate_api_url( path ), {}, callback );
+    http_get( path, callback );
 
   }
 
-  function http_get(url, options, callback )
+  function http_get( path, callback )
   {
-    run_config_check();
-
-    // Allow options argument to be optional
-    if ( typeof options === "function" && options !== undefined ) {
-      callback = options;
-      options = {};
+    if ( obj.team_number === '' || obj.app_identifier === '' ) {
+      throw 'Configuration error: Please configure team_number and app_identifier';
     }
 
-    if ( typeof options !== "object" ) {
-      throw 'Invalid options argument given.';
-    }
-
-    if ( obj.cache.exists( url ) ) {
-      callback( obj.cache.get( url ) );
+    if ( obj.cache.exists( path ) ) {
+      callback( obj.cache.get( path ) );
       return true;
     }
 
@@ -333,27 +325,18 @@ window.nar.api.TBA = (function( window ){
     resource.onreadystatechange = function() {
         if (resource.readyState == 4 && resource.status == 200) {
             var data = JSON.parse(resource.responseText);
-            obj.cache.put( url, data );
+            obj.cache.put( path, data );
             callback( data );
         }
     }
 
+    var url = obj.api_base_url + path;
     resource.open( "GET", url, true );
 
     var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
     resource.setRequestHeader( 'X-TBA-App-Id', indentifier );
 
     resource.send();
-  }
-
-  function run_config_check() {
-    if ( obj.team_number === '' || obj.app_identifier === '' ) {
-      throw 'Configuration error: Please configure team_number and app_identifier';
-    }
-  }
-
-  function generate_api_url( path ) {
-    return obj.api_base_url + path;
   }
 
   obj.cache = ( function() {
