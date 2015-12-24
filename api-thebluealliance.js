@@ -436,7 +436,7 @@ window.TBA = (function( window ){
   /**
    * Gets an array of events ocurring in a given district during a given year.
    *
-   * @param {string} district_key  The dsitrict to get information on.
+   * @param {string} district_key  The district to get information on.
    *    Examples: 'ne', 'in', 'mar'
    * @param {integer} year The year to get information on.
    * @param {function} callback The function to call with the results of the API
@@ -460,7 +460,7 @@ window.TBA = (function( window ){
   /**
    * Gets an array of team rankings in a given district during a given year.
    *
-   * @param {string} district_key  The dsitrict to get information on.
+   * @param {string} district_key  The district to get information on.
    *    Examples: 'ne', 'in', 'mar'
    * @param {integer} year The year to get information on.
    * @param {function} callback The function to call with the results of the API
@@ -484,7 +484,7 @@ window.TBA = (function( window ){
   /**
    * Gets an array of teams participating in a given district in a given year.
    *
-   * @param {string} district_key  The dsitrict to get information on.
+   * @param {string} district_key  The district to get information on.
    *    Examples: 'ne', 'in', 'mar'
    * @param {integer} year The year to get information on.
    * @param {function} callback The function to call with the results of the API
