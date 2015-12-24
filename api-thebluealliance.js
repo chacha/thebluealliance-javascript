@@ -436,7 +436,7 @@ window.TBA = (function( window ){
   /**
    * Gets an array of events ocurring in a given district during a given year.
    *
-   * @param {string} district_key  The dsitrict to get information on.
+   * @param {string} district_key  The district to get information on.
    *    Examples: 'ne', 'in', 'mar'
    * @param {integer} year The year to get information on.
    * @param {function} callback The function to call with the results of the API
@@ -460,7 +460,7 @@ window.TBA = (function( window ){
   /**
    * Gets an array of team rankings in a given district during a given year.
    *
-   * @param {string} district_key  The dsitrict to get information on.
+   * @param {string} district_key  The district to get information on.
    *    Examples: 'ne', 'in', 'mar'
    * @param {integer} year The year to get information on.
    * @param {function} callback The function to call with the results of the API
@@ -477,6 +477,30 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/rankings";
+    http_get( path, callback );
+
+  }
+
+  /**
+   * Gets an array of teams participating in a given district in a given year.
+   *
+   * @param {string} district_key  The district to get information on.
+   *    Examples: 'ne', 'in', 'mar'
+   * @param {integer} year The year to get information on.
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
+  obj.district.teams = function ( district_key, year, callback ) {
+
+    if ( typeof district_key === "undefined" ) {
+      throw "Invalid district key argument given.";
+    }
+    if ( typeof year === "undefined" ) {
+      throw "Invalid year argument given.";
+    }
+
+    year = parseInt( year );
+    path = "district/" + district_key + "/" + year + "/teams";
     http_get( path, callback );
 
   }
