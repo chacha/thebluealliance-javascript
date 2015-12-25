@@ -167,6 +167,26 @@ window.TBA = (function( window ){
 
   }
 
+  /**
+   * Get an array of objects contain information on the districts a team has
+   * participated in, by year.
+   *
+   * @param {string} team_key The team to get information on, prepended with the
+   *    program tag. Example: 'frc3128'
+   * @param {function} callback The function to call with the results of the API
+   *    call. Passed a single JSON object with results.
+   */
+  obj.team.history.districts = function ( team_key, callback ) {
+
+    if ( typeof team_key === "undefined" ) {
+      throw "Invalid team key argument given.";
+    }
+
+    path = "team/" + team_key + "/history/districts";
+    http_get( path, callback );
+
+  }
+
   obj.team.event = {};
   /**
    * Get an array of events a team participated in during a given year.
