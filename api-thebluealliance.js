@@ -32,7 +32,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key;
-    http_get( path, callback );
+    obj.get( path, callback );
   }
 
   /**
@@ -52,7 +52,7 @@ window.TBA = (function( window ){
 
     page_num = parseInt( page_num );
     path = "teams/" + page_num;
-    http_get( path, callback );``
+    obj.get( path, callback );``
 
   }
 
@@ -71,7 +71,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/years_participated";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -103,7 +103,7 @@ window.TBA = (function( window ){
       path = "team/" + team_key + "/media";
     }
 
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -124,7 +124,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/history/events";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -143,7 +143,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/history/awards";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -163,7 +163,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/history/robots";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -183,7 +183,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/history/districts";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -208,7 +208,7 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "team/" + team_key + "/" + year + "/events";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -232,7 +232,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/event/" + event_key + "/awards";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -257,7 +257,7 @@ window.TBA = (function( window ){
     }
 
     path = "team/" + team_key + "/event/" + event_key + "/matches";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -277,7 +277,7 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "events/" + year;
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -296,7 +296,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key;
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -315,7 +315,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/teams";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -334,7 +334,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/matches";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -353,7 +353,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/stats";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -372,7 +372,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/rankings";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -391,7 +391,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/awards";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -410,7 +410,7 @@ window.TBA = (function( window ){
     }
 
     path = "event/" + event_key + "/district_points";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -430,7 +430,7 @@ window.TBA = (function( window ){
     }
 
     path = "match/" + match_key;
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -449,7 +449,7 @@ window.TBA = (function( window ){
     }
 
     path = "districts/" + year;
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -473,7 +473,7 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/events";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -497,7 +497,7 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/rankings";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -521,7 +521,7 @@ window.TBA = (function( window ){
 
     year = parseInt( year );
     path = "district/" + district_key + "/" + year + "/teams";
-    http_get( path, callback );
+    obj.get( path, callback );
 
   }
 
@@ -532,7 +532,7 @@ window.TBA = (function( window ){
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  function http_get( path, callback )
+  obj.get = function( path, callback )
   {
     if ( obj.team_number === '' || obj.app_identifier === '' ) {
       throw 'Configuration error: Please configure team_number and app_identifier';
