@@ -1,4 +1,4 @@
-window.TBA = (function( window ){
+window.TBA = (function(){
   var obj = {
     'current_version' : '0.2',
     'team_number'     : 'frc3128',
@@ -654,4 +654,4 @@ window.TBA = (function( window ){
   })();
 
   return obj;
-})(window);
+})();
