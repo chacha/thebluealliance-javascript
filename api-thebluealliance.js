@@ -1,4 +1,5 @@
-window.TBA = (function(){
+(function(){
+
   var obj = {
     'current_version' : '0.2',
     'team_number'     : 'frc3128',
@@ -6,6 +7,15 @@ window.TBA = (function(){
     'api_base_url'    : 'https://www.thebluealliance.com/api/v2/',
     'provide_default_callback' : true,
   };
+
+  // Export to node if running in node. Otherwise, export to window
+  var isNode = false;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = obj;
+    isNode = true;
+  } else {
+    window.TBA = obj;
+  }
 
   /**
    * Returns string on version information
