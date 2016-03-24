@@ -4,7 +4,8 @@
     'current_version' : '0.2',
     'team_number'     : 'frc3128',
     'app_identifier'  : 'team-analysis',
-    'api_base_url'    : 'https://www.thebluealliance.com/api/v2/',
+    'api_base_host'   : 'www.thebluealliance.com',
+    'api_base_path'   : '/api/v2/',
     'provide_default_callback' : true,
   };
 
@@ -553,27 +554,65 @@
       return true;
     }
 
-    var resource = new XMLHttpRequest();
-    resource.onreadystatechange = function() {
-        if (resource.readyState == 4 && resource.status == 200) {
-            var data = JSON.parse(resource.responseText);
-            obj.cache.put( path, data );
+    var receiver = function( responseText ) {
+      var data = JSON.parse( responseText );
+      obj.cache.put( path, data );
 
-            if ( typeof callback === "function" ) {
-              callback( data );
-            } else if ( obj.provide_default_callback === true ) {
-              obj.defaultCallback( data );
-            }
-        }
+      if ( typeof callback === "function" ) {
+        callback( data );
+      } else if ( obj.provide_default_callback === true ) {
+        obj.defaultCallback( data );
+      }
     }
 
-    var url = obj.api_base_url + path;
-    resource.open( "GET", url, true );
+    obj.request_handler( obj.api_base_host, obj.api_base_path + path, receiver );
+  }
 
-    var indentifier = obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
-    resource.setRequestHeader( 'X-TBA-App-Id', indentifier );
+  /**
+   * Create request handler based on
+   * server environment.
+   */
+  if ( isNode ) {
+    obj.request_handler = function( host, path, callback ) {
+      var receiver = function( response ) {
+        var responseText = "";
+        response.on( 'data', function ( chunk ) {
+          responseText += chunk;
+        });
+        response.on( 'end', function () {
+          callback( responseText );
+        });
+      };
+      try {
+        var resource = require('https');
+        resource.request( {
+          hostname: host,
+          path: path,
+          headers: { 'X-TBA-App-Id' : obj.get_api_identifier() },
+        }, receiver ).end();
+        return true;
+      } catch ( err ) {
+        console.log( err );
+        return false;
+      }
+    };
+  } else {
+    obj.request_handler = function( host, path, callback ) {
+      var resource = new XMLHttpRequest();
+      resource.onreadystatechange = function() {
+          if (resource.readyState == 4 && resource.status == 200) {
+            callback( resource.responseText );
+          }
+      }
+      resource.open( "GET", "https://" + host + path, true );
+      resource.setRequestHeader( 'X-TBA-App-Id', obj.get_api_identifier() );
+      resource.send();
+      return true;
+    };
+  }
 
-    resource.send();
+  obj.get_api_identifier = function() {
+    return obj.team_number + ':' + obj.app_identifier + ':' + obj.current_version;
   }
 
   /**
