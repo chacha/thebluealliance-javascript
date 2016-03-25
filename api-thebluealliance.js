@@ -549,19 +549,23 @@
       throw 'Configuration error: Please configure team_number and app_identifier';
     }
 
+    if ( typeof callback !== "function" && obj.provide_default_callback === true ) {
+      callback = obj.defaultCallback;
+    }
+
     if ( obj.cache.exists( path ) ) {
-      callback( obj.cache.get( path ) );
+      var data = obj.cache.get( path );
+      if ( typeof callback === "function" ) {
+          callback( data );
+      }
       return true;
     }
 
     var receiver = function( responseText ) {
       var data = JSON.parse( responseText );
       obj.cache.put( path, data );
-
       if ( typeof callback === "function" ) {
-        callback( data );
-      } else if ( obj.provide_default_callback === true ) {
-        obj.defaultCallback( data );
+          callback( data );
       }
     }
 
