@@ -63,7 +63,12 @@
   obj.team.list = function( page_num, callback ) {
 
     if ( typeof page_num === "undefined" ) {
-      page_num = 1;
+      page_num = 0;
+    } else if ( typeof page_num === "function" ) {
+      callback = page_num;
+      page_num = 0;
+    } else if ( isNaN( page_num ) ) {
+      throw "Page number must be a number.";
     }
 
     page_num = parseInt( page_num );
