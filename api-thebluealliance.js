@@ -31,15 +31,20 @@
   /**
    * Gets information relating to a specific team.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.get = function( team_key, callback ) {
+  obj.team.get = function( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key;
@@ -70,15 +75,20 @@
   /**
    * Get an array of the years a specific team participated in events.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.years_participated = function ( team_key, callback ) {
+  obj.team.years_participated = function ( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/years_participated";
@@ -90,21 +100,29 @@
    * Gets media resource information relating to a team for a specific year, or
    *  the most current year.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {integer} year The year to get media information on. Defaults to the
    *    current year. Example: '2010', '2015'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.media = function ( team_key, year, callback ) {
+  obj.team.media = function ( team_input, year, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
     }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
+    }
+
     if ( typeof year === "function" ) {
       callback = year;
       year = undefined;
+    } else if ( year !== undefined && isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     if ( year !== undefined ) {
@@ -123,15 +141,20 @@
   /**
    * Gets an array of information on the events a team has ever participated in.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.history.events = function ( team_key, callback ) {
+  obj.team.history.events = function ( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/history/events";
@@ -142,15 +165,20 @@
   /**
    * Get an array of objects containing the awards a team has ever received.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.history.awards = function ( team_key, callback ) {
+  obj.team.history.awards = function ( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/history/awards";
@@ -162,15 +190,20 @@
    * Get an array of objects contain information on the robots a team has
    *  produced, by year.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.history.robots = function ( team_key, callback ) {
+  obj.team.history.robots = function ( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/history/robots";
@@ -182,15 +215,20 @@
    * Get an array of objects contain information on the districts a team has
    * participated in, by year.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.history.districts = function ( team_key, callback ) {
+  obj.team.history.districts = function ( team_input, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/history/districts";
@@ -202,19 +240,27 @@
   /**
    * Get an array of events a team participated in during a given year.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {integer} year The year to get information on. Example: '2015'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.event.list = function ( team_key, year, callback ) {
+  obj.team.event.list = function ( team_input, year, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
     }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
+    }
+
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     year = parseInt( year );
@@ -226,20 +272,25 @@
   /**
    * Gets an array of awards given to a specific team at a specific event.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {string} event_key  The event to get information on. Includes the
    *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.event.awards = function ( team_key, event_key, callback ) {
+  obj.team.event.awards = function ( team_input, event_key, callback ) {
 
     if ( typeof team_key === "undefined" ) {
       throw "Invalid team key argument given.";
     }
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/event/" + event_key + "/awards";
@@ -251,20 +302,25 @@
    * Gets an array of match information on matches a given team participated
    *    at a given event.
    *
-   * @param {string} team_key The team to get information on, prepended with the
+   * @param {string} team_input The team to get information on, prepended with the
    *    program tag. Example: 'frc3128'
    * @param {string} event_key  The event to get information on. Includes the
    *    event code, prepended by the year. Example: '2016casd', '2015nvlv'
    * @param {function} callback The function to call with the results of the API
    *    call. Passed a single JSON object with results.
    */
-  obj.team.event.matches = function ( team_key, event_key, callback ) {
+  obj.team.event.matches = function ( team_input, event_key, callback ) {
 
-    if ( typeof team_key === "undefined" ) {
+    if ( typeof team_input === "undefined" ) {
       throw "Invalid team key argument given.";
     }
     if ( typeof event_key === "undefined" ) {
       throw "Invalid event key argument given.";
+    }
+
+    var team_key = parse_team_key( team_input );
+    if ( team_key === false ) {
+      throw "Team key given must be in format 'frc####' or '####'."
     }
 
     path = "team/" + team_key + "/event/" + event_key + "/matches";
@@ -284,6 +340,8 @@
 
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     year = parseInt( year );
@@ -457,6 +515,8 @@
 
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     path = "districts/" + year;
@@ -480,6 +540,8 @@
     }
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     year = parseInt( year );
@@ -504,6 +566,8 @@
     }
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     year = parseInt( year );
@@ -528,6 +592,8 @@
     }
     if ( typeof year === "undefined" ) {
       throw "Invalid year argument given.";
+    } else if ( isNaN( year ) ){
+      throw "Year must be a number.";
     }
 
     year = parseInt( year );
@@ -630,6 +696,26 @@
     console.log( 'Current cache statistics:' );
     console.log( obj.cache.stats );
   };
+
+  /**
+   * Parses a string and prepares it as a team key.
+   */
+  function parse_team_key( input ) {
+
+    // Return unmodified if already prepared
+    if ( input.indexOf( 'frc' ) === 0 ) {
+      return input;
+    }
+
+    // If the string is a number, prefix with 'frc'
+    if ( ! isNaN( input ) ) {
+      return 'frc' + input;
+    }
+
+    // Otherwise, the string cannot be used
+    return false;
+
+  }
 
   /**
    * Resource caching to reduce number of requests to the API server. Persists
